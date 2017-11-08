@@ -40,9 +40,17 @@ class TouboulPlayer extends Player
         // -------------------------------------    -----------------------------------------------------
         // How can i display the result of each round ? $this->prettyDisplay()
         // -------------------------------------    -----------------------------------------------------
-        $round = $this->result->getNbRound();
-        $choice = parent::scissorsChoice();   
-        if ( $round%2 == 0 )
+   $round = $this->result->getNbRound();
+        $choice = parent::scissorsChoice();
+        
+        if ($this->result->getLastChoiceFor($this->mySide) === 'scissors' && $this->result->getLastScoreFor($this->mySide) === 0)
+            $choice = parent::rockChoice();
+        if ($this->result->getLastChoiceFor($this->mySide) === 'scissors' && $this->result->getLastScoreFor($this->mySide) === 5)
+            $choice = parent::paperChoice();
+        if ($this->result->getLastChoiceFor($this->mySide) === 'scissors' && $this->result->getLastScoreFor($this->mySide) === 1)
+            $choice = parent::scissorsChoice();
+
+        if ( $round > 500 )
         {
 
           if ($this->result->getLastScoreFor($this->opponentSide) === 5 && $this->result->getChoicesFor($this->opponentSide) === 'rock')
@@ -57,7 +65,6 @@ class TouboulPlayer extends Player
               $choice = parent::scissorsChoice();
           if ($this->result->getLastChoiceFor($this->mySide) === 'scissors' && $this->result->getLastScoreFor($this->mySide) === 0)
               $choice = parent::rockChoice();
-
         }
         else
         {
